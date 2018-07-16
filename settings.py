@@ -3,8 +3,8 @@ import os
 
 SECRET_KEY = 'secretkey'
 DEBUG = True
-DB_USERNAME = 'root'
-DB_PASSWORD = 'admin'
+DB_USERNAME = 'app_user'
+DB_PASSWORD = 'app_password'
 BLOG_DATABASE_NAME = 'blog'
 DB_HOST = os.getenv('IP', '0.0.0.0')
 DB_URI = "mysql+pymysql://%s:%s@%s/%s" % (DB_USERNAME, DB_PASSWORD, DB_HOST, BLOG_DATABASE_NAME)
