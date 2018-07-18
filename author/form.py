@@ -17,4 +17,4 @@ class RegisterForm(FlaskForm):
     ])
     confirm = PasswordField('Repeat password')
 
-    #TODO Check why validators are not validating
+    # TODO Check why validators are not validating
