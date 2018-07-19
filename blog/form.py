@@ -1,9 +1,22 @@
-from wtforms import StringField, validators
-from flask_blog.author import RegisterForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, validators, PasswordField
+from wtforms.fields.html5 import EmailField
 
 
-class SetupForm(RegisterForm):
+class SetupForm(FlaskForm):
     name = StringField('Blog name', validators=[validators.DataRequired(),
                                                 validators.Length(max=80)])
+    fullname = StringField('Full name', [validators.Required()])
+    email = EmailField('Email', [validators.Required()])
+    username = StringField('Username', [
+        validators.DataRequired(),
+        validators.Length(min=4, max=25)
+    ])
+    password = PasswordField('New Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match'),
+        validators.Length(min=4, max=80)
+    ])
+    confirm = PasswordField('Repeat password')
     
 
