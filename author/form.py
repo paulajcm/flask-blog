@@ -18,3 +18,15 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField('Repeat password')
 
     # TODO Check why validators are not validating
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', [
+        validators.DataRequired(),
+        validators.Length(min=4, max=25)
+    ])
+    password = PasswordField('Password', {
+        validators.DataRequired(),
+        validators.Length(min=4, max=80)
+    })
+
