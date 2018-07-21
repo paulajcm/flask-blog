@@ -5,6 +5,7 @@ from flask_blog import db
 from flask_blog.author.models import Author
 from flask_blog.blog.models import Blog
 from flask_blog.author.decorators import login_required
+import bcrypt
 
 
 @app.route('/')
@@ -27,11 +28,13 @@ def setup():
     form = SetupForm()
     error = ""
     if form.validate_on_submit():
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(form.password.data, salt)
         author = Author(
             form.fullname.data,
             form.email.data,
             form.username.data,
-            form.password.data,
+            hashed_password,
             True
         )
         db.session.add(author)
@@ -49,7 +52,7 @@ def setup():
         if author.id and blog.id:
             db.session.commit()
             flash('Blog created')
-            return url_for('admin')
+            return redirect(url_for('admin'))
         else:
             db.session.rollback()
             error = 'Error creating blog'
