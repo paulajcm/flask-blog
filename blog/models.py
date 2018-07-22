@@ -25,7 +25,7 @@ class Post(db.Model):
     slug = db.Column(db.String(256), unique=True)
     publish_date = db.Column(db.DateTime)
     live = db.Column(db.Boolean)
-    category_id = db.Column(db.Integer, db.ForeignKey('category_id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     def __init__(self, blog_id, author_id, title, body, category, slug=None, publish_date=None, live=True):
         self.blog_id = blog_id
