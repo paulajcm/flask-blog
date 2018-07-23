@@ -65,8 +65,8 @@ def setup():
 @app.route('/post', methods=('GET', 'POST'))
 @author_required
 def post():
-    form = PostForm
-    return render_template('blog/post.html')
+    form = PostForm()
+    return render_template('blog/post.html', form=form)
 
 
 @app.route('/article')
