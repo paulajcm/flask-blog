@@ -27,12 +27,12 @@ class Post(db.Model):
     live = db.Column(db.Boolean)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
-    def __init__(self, blog_id, author_id, title, body, category, slug=None, publish_date=None, live=True):
+    def __init__(self, blog_id, author_id, title, body, category_id, slug=None, publish_date=None, live=True):
         self.blog_id = blog_id
         self.author_id = author_id
         self.title = title
         self.body = body
-        self.category_id = category
+        self.category_id = category_id
         self.slug = slug
         if publish_date is None:
             self.publish_date = datetime.utcnow()
@@ -41,7 +41,7 @@ class Post(db.Model):
         self.live = live
 
     def __repr__(self):
-        return '<POST %r>' % self.title
+        return '<Post %r>' % self.title
 
 
 class Category(db.Model):

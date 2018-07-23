@@ -5,3 +5,5 @@ Flask-Script==2.0.5
 Flask-WTF==0.14
 Flask-Migrate==2.2.0
 Py-Bcrypt==0.4
+Python-Slugify==1.2.5
+Flask-Markdown==0.3

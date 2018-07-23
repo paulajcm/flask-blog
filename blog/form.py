@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, PasswordField
+from wtforms import StringField, validators, PasswordField, TextAreaField
 from wtforms.fields.html5 import EmailField
+from flask_blog.blog.models import Category
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 
 class SetupForm(FlaskForm):
@@ -18,5 +20,20 @@ class SetupForm(FlaskForm):
         validators.Length(min=4, max=80)
     ])
     confirm = PasswordField('Repeat password')
-    
+
+
+def categories():
+    return Category.query
+
+
+class PostForm(FlaskForm):
+    title = StringField('Title', [
+        validators.DataRequired(),
+        validators.Length(max=80)
+    ])
+    body = TextAreaField('Content', [
+        validators.DataRequired()
+    ])
+    category = QuerySelectField('Category', query_factory=categories, allow_blank=True)
+    new_category = StringField('New Category')
 
