@@ -4,25 +4,30 @@ from flask_blog.blog.form import SetupForm, PostForm
 from flask_blog import db
 from flask_blog.author.models import Author
 from flask_blog.blog.models import Blog, Category, Post
-from flask_blog.author.decorators import author_required
+from flask_blog.author.decorators import author_required, login_required
 import bcrypt
 from slugify import slugify
+
+POSTS_PER_PAGE = 3
 
 
 @app.route('/')
 @app.route('/index')
-def index():
+@app.route('/index/<int:page>')
+def index(page=1):
     blog = Blog.query.first()
     if not blog:
         return redirect(url_for('setup'))
-    posts = Post.query.order_by(Post.publish_date.desc())
+    posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, POSTS_PER_PAGE, False)
     return render_template('blog/index.html', blog=blog, posts=posts)
 
 
 @app.route('/admin')
-def admin():
+@app.route('/index/<int:page>')
+@login_required
+def admin(page=1):
     if session.get('is_author'):
-        posts = Post.query.order_by(Post.publish_date.desc())
+        posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, POSTS_PER_PAGE, False)
         return render_template('blog/admin.html', posts=posts)
     else:
         return redirect(url_for('login'))
