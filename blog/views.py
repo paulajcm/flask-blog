@@ -20,13 +20,12 @@ def index():
 
 
 @app.route('/admin')
-@author_required
 def admin():
     if session.get('is_author'):
         posts = Post.query.order_by(Post.publish_date.desc())
         return render_template('blog/admin.html', posts=posts)
     else:
-        abort(403)
+        return redirect(url_for('login'))
 
 
 @app.route('/setup', methods=('GET', 'POST'))
