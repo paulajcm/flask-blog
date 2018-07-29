@@ -10,6 +10,8 @@
 
         <h1><a href="{{ url_for('index') }}">{{ blog.name }}</a></h1>
 
+        {% include '_flashmessages.html' %}
+
         <div class="post-list">
 
             {% for post in posts.items %}
