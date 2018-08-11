@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+q
 from flask_migrate import Migrate
 from flaskext.markdown import Markdown
 from flask_uploads import UploadSet, configure_uploads, IMAGES
